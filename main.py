@@ -15,5 +15,13 @@ def menus():
 
 def menus_em_sessao():
     print("Selecione um dos menus abaixo:")
+    print("1 - Logs")
+    print("2 - Terminar sessão")
+    menu = input("Introduza o numero do menu: ")
+    
+    if menu == "1":
+        SS().Logs()
+    elif menu == "2":
+        menus()
 
 menus()
