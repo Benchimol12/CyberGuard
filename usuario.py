@@ -2,8 +2,9 @@ from sistema_seguranca import SistemaSeguranca as SS
 
 class Utilizadores:
 
-    def inicio_sistema(self):
-        SS()
+    def iniciar_sistema(self):
+        #cria uma instancia da classe SistemaSeguranca e guarda na variavel sistema_seguranca, evitando erros ao chamar a classe SistemaSeguranca diretamente
+        self.sistema_seguranca = SS() 
 
     def iniciar_sessao(self):
         ######Corrigir as tentativas tem de ser por utilizador
@@ -14,11 +15,11 @@ class Utilizadores:
             if tentativas != 3:
                 utilizador = input("Nome de Utilizador: ")
                 codigo = input("Palavra-passe: ")
-            if SS().autenticacao(utilizador, codigo)[0] == True:
+            if self.sistema_seguranca.autenticacao(utilizador, codigo)[0] == True:
                 print(f"Bem Vindo {utilizador}!")
-                if SS().autenticacao(utilizador, codigo)[1] == "Administrador":
+                if self.sistema_seguranca.autenticacao(utilizador, codigo)[1] == "Administrador":
                     return "Administrador"
-                elif SS().autenticacao(utilizador, codigo)[1] == "Utilizador":
+                elif self.sistema_seguranca.autenticacao(utilizador, codigo)[1] == "Utilizador":
                     return "Utilizador"
                 break
             
@@ -31,6 +32,16 @@ class Utilizadores:
         elif tentativas <= 0:
             print("Erro ao ler os utilizadores.")
 
-    #def registo(self):
-     #  self.lista_utilizadores.append(str(self.utilizador))
-     #   self.lista_utilizadores_codigo.insert(str(self.utilizador[str(self.codigo)]))
+    def registo(self):
+        utilizador = input("Nome de Utilizador: ")
+        codigo = input("Palavra-passe: ")
+        if utilizador in self.sistema_seguranca.lista_utilizadores_codigo:
+            print(f"Utilizador {utilizador} já existe.")
+        else:
+            self.sistema_seguranca.criar_utilizador(utilizador, codigo)
+            print(f"Utilizador {utilizador} criado com sucesso.")
+            print(self.sistema_seguranca.lista_utilizadores_codigo)
+
+    def consultar_logs(self):
+        for log in self.sistema_seguranca.logs:
+            print(log)

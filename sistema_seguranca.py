@@ -1,7 +1,5 @@
 from datetime import datetime as dt
 
-segundos = dt().now().second
-
 class SistemaSeguranca:
     #chamado uma unica vez quando incializa o sistema
     def __init__(self): 
@@ -12,6 +10,10 @@ class SistemaSeguranca:
     #dia-mes-ano hora:minuto:segundo
     def timestamp(self):
         return dt.now().strftime("%d-%m-%Y %H:%M:%S") 
+    
+    def criar_utilizador(self, utilizador=str, codigo=str):
+        self.lista_utilizadores_codigo[utilizador] = codigo
+
     
     def autenticacao(self, utilizador, codigo):
         timestamp = self.timestamp()

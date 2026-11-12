@@ -1,6 +1,6 @@
-from usuario import Utilizadores as Ut
+from usuario import Utilizadores
 
-utilizador_teste = {"ricardo": "1234"} #Utilizador + codigo/palavra-passe
+Ut = Utilizadores()
 
 def menu_inicial():
     print("Selecione um dos menus abaixo:")
@@ -9,10 +9,11 @@ def menu_inicial():
     menu = input("Introduza o numero do menu: ")
 
     if menu == "1":
-        tipo_utilizador = Ut().iniciar_sessao()
+        tipo_utilizador = Ut.iniciar_sessao()
         menus_em_sessao(tipo_utilizador)
     elif menu == "2":
         Ut.registo()
+        menu_inicial()
 
 def menus_em_sessao(tipo_utilizador):
 
@@ -50,7 +51,7 @@ def menus_em_sessao(tipo_utilizador):
         print("Erro ao ler o tipo de utilizador.")
         menu_inicial()
             
-#Inicializa o sistema de segurança e defineo o administrador
-Ut().inicio_sistema()
+#Inicializa o sistema de segurança e define o o administrador
+Ut.iniciar_sistema()
 while True:
     menu_inicial()
