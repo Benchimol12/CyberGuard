@@ -14,7 +14,8 @@ def menu_inicial():
 
     if menu == "1":
         utilizador, tipo_utilizador = Ut.iniciar_sessao()
-        menus_em_sessao(utilizador, tipo_utilizador)
+        if utilizador != "None":
+            menus_em_sessao(utilizador, tipo_utilizador)
     elif menu == "2":
         Ut.registo_publico()
     elif menu == "3":
@@ -36,13 +37,13 @@ def menus_em_sessao(utilizador, tipo_utilizador):
             if menu == "1":
                 Ut.registo_admin(utilizador)
             elif menu == "2":
-                Ut.ver_lista_utilizadores()
+                Ut.ver_lista_utilizadores(utilizador)
             elif menu == "3":
-                Ut.desbloquear()
+                Ut.desbloquear(utilizador)
             elif menu == "4":
-                Ut.eliminar_conta()
+                Ut.eliminar_conta(utilizador)
             elif menu == "5":
-                Ut.consultar_logs()
+                Ut.consultar_logs(utilizador)
             elif menu == "6":
                 log = f"{Ut.sistema_seguranca.timestamp()} - Administrador '{utilizador}' terminou sessão."
                 Ut.criar_log(log)
@@ -50,13 +51,21 @@ def menus_em_sessao(utilizador, tipo_utilizador):
 
         elif tipo_utilizador == "Utilizador":
             print("Selecione um dos menus abaixo:")
-            print("1 - ")
-            print("2 - Terminar sessão")
+            print("1 - Testar sessão (A ser feito)")
+            print("2 - Criar Utilizador")
+            print("3 - Consultar logs ")
+            print("4 - Terminar sessão")
             menu = input("Introduza o numero do menu: ")
             
             if menu == "1":
+                log = f"{Ut.sistema_seguranca.timestamp()} - Utilizador '{utilizador}' testou a sessão."
+                Ut.criar_log(log)
                 pass
             elif menu == "2":
+                Ut.registo_publico(utilizador)
+            elif menu == "3":
+                Ut.consultar_logs(utilizador)
+            elif menu == "4":
                 log = f"{Ut.sistema_seguranca.timestamp()} - Utilizador '{utilizador}' terminou sessão."
                 Ut.criar_log(log)
                 break
@@ -69,5 +78,5 @@ def menus_em_sessao(utilizador, tipo_utilizador):
             
 #Inicializa o sistema de segurança e define o o administrador
 Ut.iniciar_sistema()
-while exit == False:
+while not exit:
     menu_inicial()

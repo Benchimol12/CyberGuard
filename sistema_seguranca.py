@@ -14,10 +14,14 @@ class SistemaSeguranca:
         return dt.now().strftime("%d-%m-%Y %H:%M:%S") 
 
     #Cria um utilizador normal atraves do menu inicial, sem estar logado no sistema
-    def criar_utilizador_publico(self, utilizador=str, codigo=str):
+    def criar_utilizador_publico(self, utilizador=str, codigo=str, user=str):
         self.lista_utilizadores_codigo[utilizador] = codigo
         self.lista_utilizadores_estado[utilizador] = "ativo"
-        self.logs.append(f"{self.timestamp()} - nova conta utilizador '{utilizador}' criada no menu inicial .")
+        if user != "Publico":
+            log = f"{self.timestamp()} - Utilizador '{user}' criou uma nova conta de Utilizador '{utilizador}'."
+            self.logs.append(log)
+        else:
+            self.logs.append(f"{self.timestamp()} - Nova conta utilizador '{utilizador}' criada no menu inicial .")
 
     #Cria um utilizador normal atraves do menu de administrador, estando logado no sistema
     def criar_utilizador_privado(self, criar_utilizador=str, codigo=str, utilizador=str):
@@ -43,6 +47,10 @@ class SistemaSeguranca:
     def eliminar_estado_utilizador(self, utilizador=str, admin=str):
         del self.lista_utilizadores_estado[utilizador]
         self.logs.append(f"{self.timestamp()} -'{admin}' eliminou o estado da conta de '{utilizador}'.")
+
+    def bloquear_utilizador(self, utilizador=str):
+        self.lista_utilizadores_estado[utilizador] = "bloqueado"
+        self.logs.append(f"{self.timestamp()} - '{utilizador}' bloqueada com sucesso.")
 
     #Autenticação de utilizadores normais e administradores        
     def autenticacao(self, utilizador, codigo):
