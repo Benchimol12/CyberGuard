@@ -37,9 +37,10 @@ class SistemaSeguranca:
 
     #Eliminar um utilizador normal atraves do menu de administrador, estando logado no sistema
     def eliminar_utilizador(self, utilizador=str, admin=str):
+        
         try:
             del self.lista_utilizadores_codigo[utilizador]
-        except ValueError:
+        except KeyError:
             del self.admin[utilizador]
         self.logs.append(f"{self.timestamp()} -'{admin}' eliminou a conta de '{utilizador}'.")
 
